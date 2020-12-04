@@ -6,8 +6,7 @@ Other than these there are also some features like changng passwords, viewing ca
 
 
 
-
-ADMIN MANUAL
+    ADMIN MANUAL
 
     Admin Registration
 
@@ -54,7 +53,7 @@ Options..
 
 
 
-USER MANUAL
+    USER MANUAL
 
     User Registration
 
