@@ -1,3 +1,7 @@
+/* C File for Library Management System.
+Author-PEDISETTI VENKATESH (18MS014)
+Description:This project was done for the assignment given for CS3101-(2020 Autumn) course at IISER KOLKATA. */
+
 #include<stdio.h>   //including Standard input output header file
 #include<stdlib.h>  //including Standard library header file
 #include<string.h>  //including String header file
