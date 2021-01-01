@@ -60,7 +60,7 @@ void DatePlus(int days) //This function adds number of days to current date
     }
     else if(mm==2 && yyyy%4==0) //29days----for the case of fen in leap year
     {
-        if(dd>29-days)//similar to previoyus if confdition
+        if(dd>29-days)//similar to previous if confdition
         {
             dd=dd+days-29;
             mm++;
@@ -217,7 +217,7 @@ void Register() //defining a function for regestring new users
                 printf("\n\t%s,You have Entered Wrong Password. Only Admin allowed. Please don't mess here.\n\n",newuser.name);
             }
         }
-        else    // if niether F S or A then ask for proper charecter
+        else    // if neither F S or A then ask for proper charecter
         {
             xo=0;
             ko++;
@@ -282,7 +282,7 @@ void Register() //defining a function for regestring new users
         newuser.b[i].DD=0;//all due dates will sho 0/0/0000
         newuser.b[i].MM=0;
         newuser.b[i].YYYY=0;
-        newuser.b[i].Force=0;//intial force is 0.
+        newuser.b[i].Force=0;//initial force is 0.
     }
  
     fp = fopen(UsersPath,"a"); //Opening Userspath file and appending it                                   
@@ -307,10 +307,10 @@ int Login() //defining a function for Login checking passwords
     if (LRead==NULL) //If the file cant be opened
     {
         printf("\n\n\tThere are no users yet please register and be the First one.\n\tPress Enter key to register.");
-        fclose(LRead); //Closing the Lread file if the above condition is satisfied
+        fclose(LRead); //Closing the read file if the above condition is satisfied
         Register(); //Calling out the register function to register again from the user 
     }
-    fclose(LRead); //Closing the Lread file if the above condition is not satisfied
+    fclose(LRead); //Closing the read file if the above condition is not satisfied
  
     printf("\n\n\n\tYou are in Login Page.\n"); //printing dailog
     // Login:
@@ -319,8 +319,8 @@ int Login() //defining a function for Login checking passwords
         printf("\n\tEnter the User ID : "); //asking id
         scanf("%s",&uu); //Storing USer ID in ?uu?
 
-        LRead=fopen(UsersPath,"r"); //opening UsersPath file in reading mode for cross chekking id
-        while(fread(&userL,sizeof(USER),1,LRead)) //Storing Lread data in Struct ?user? with size of USER
+        LRead=fopen(UsersPath,"r"); //opening UsersPath file in reading mode for cross checking id
+        while(fread(&userL,sizeof(USER),1,LRead)) //Storing read data in Struct ?user? with size of USER
         {
             if(strcmp(userL.id,uu)==0) //Checking if user.id and uu strings match each other for logging IN
             {
@@ -432,7 +432,7 @@ void ForcePullBook(char Bid[10])        //This function Takes away all the speci
     printf("\n\tThe Book %s is force pulled successfully.\n\n",Bid);
 }
 
-void ClearForce(USER userC)     //This fuctionn clears the forces and pulled books
+void ClearForce(USER userC)     //This function clears the forces and pulled books
 {
     USER CC;
     int s;
@@ -473,7 +473,7 @@ int userPage(USER userP)    //defining function for displaying the user details
     fp=fopen(UsersPath,"r"); //Opening UsersPath file in reading mode
     while(fread(&U,sizeof(USER),1,fp)) //Reading the ?fp? and storing the data in ?U?
     {
-        if(strcmp(userP.id,U.id)==0) //Comparing strings userP.id of arugument, U.id and they are true
+        if(strcmp(userP.id,U.id)==0) //Comparing strings userP.id of argument, U.id and they are true
         {
             strcpy(userP.name,U.name); //Copies data in U's data to userP's
             strcpy(userP.id,U.id);
@@ -594,7 +594,7 @@ void Catalog()  //defining a function for displaying the books in catalog
     i=0; //initiallising i to 0
     while(fread(&book,sizeof(BOOK),1,fp)) //Reading the data from fp and storing it in book
     {
-        i++; //beging with i=1 and increamenting each time
+        i++; //beging with i=1 and incrementing each time
         printf("\n\t|%4d | %-58s | %-20s| %-9s| %10d/%-6d |",i,book.name,book.author,book.id,book.available,book.total); //printing number i++ and book details
     }
     fclose(fp); //Closing the fp file after completing by printing all books in catalogue
@@ -845,7 +845,7 @@ void BorrowBook(USER userB) //defining function for borrowing book from catalog
                                 break;
                             }
                         }
-                        fp2=fopen(BooksPath2,"a"); //copying after chnages made to temp
+                        fp2=fopen(BooksPath2,"a"); //copying after changes made to temp
                         fwrite(&B,sizeof(BOOK),1,fp2);
                         fclose(fp2);
                     }
@@ -873,16 +873,16 @@ void BorrowBook(USER userB) //defining function for borrowing book from catalog
                         fwrite(&B,sizeof(BOOK),1,fp2);
                         fclose(fp2);
                     }
-                    else if(U.id[0]=='F' && B.available<=0) //printing exceptional daologs
+                    else if(U.id[0]=='F' && B.available<=0) //printing exceptional dailogs
                     {
                         printf("\n\tThere are no copies of the Book you ask. Please come back and check.");
                         fp2=fopen(BooksPath2,"a"); //copying without changes
                         fwrite(&B,sizeof(BOOK),1,fp2);
                         fclose(fp2);
                     }
-                    else if(U.id[0]=='S' && B.available<=3)//printing exceptional daologs
+                    else if(U.id[0]=='S' && B.available<=3)//printing exceptional dailogs
                     {
-                        printf("\n\tSorry...\n\tThe available Copies of the Book you ask are less than or equal to 3.\n\tThese Books are researved only for faculty.\n\tPlease come back later and check.");
+                        printf("\n\tSorry...\n\tThe available Copies of the Book you ask are less than or equal to 3.\n\tThese Books are reserved only for faculty.\n\tPlease come back later and check.");
                         fp2=fopen(BooksPath2,"a"); //copying without changes
                         fwrite(&B,sizeof(BOOK),1,fp2);
                         fclose(fp2);
@@ -1017,7 +1017,7 @@ void ReturnBook(USER userR) //Defining a function for returning a book to catalo
             }
             fclose(fp);
  
-            fptr2=fopen(UsersPath2,"a"); //copy t temp sfter chanhges
+            fptr2=fopen(UsersPath2,"a"); //copy t temp after changes
             fwrite(&U,sizeof(USER),1,fptr2);
             fclose(fptr2);
         }
@@ -1118,7 +1118,7 @@ void ChangePassword(USER userC) //Defining a function for changing Password
     fptr=fopen(UsersPath,"r"); //opening user file for reading
     while(fread(&U,sizeof(USER),1,fptr))
     {
-        if(strcmp(U.id,userC.id)!=0) //copy all users to temp file if id doesnt match
+        if(strcmp(U.id,userC.id)!=0) //copy all users to temp file if id doesn't match
         {
             fptr2=fopen(UsersPath2,"a");
             fwrite(&U,sizeof(USER),1,fptr2);
@@ -1158,7 +1158,7 @@ char LowerString(char TheString[51])        //This function lowers all char in s
     }
 }
 
-void Search()       //This is a free serach fuction for Book name and author
+void Search()       //This is a free search fuction for Book name and author
 {
     char sea[40],Name[50],Author[20];
     char *P, *Q;
@@ -1185,7 +1185,7 @@ void Search()       //This is a free serach fuction for Book name and author
     {
         strcpy(Name,S.name);
         strcpy(Author,S.author);
-        LowerString(Name);      //lowering to make not casesensitve
+        LowerString(Name);      //lowering to make not case sensitive
         LowerString(Author);
         P = strstr(Name,sea);
         Q = strstr(Author,sea);
@@ -1210,7 +1210,7 @@ void Search()       //This is a free serach fuction for Book name and author
     }
 }
 
-void Request(USER userM) //Defining a function to collect requests from ysers
+void Request(USER userM) //Defining a function to collect requests from users
 {
     USER U;
     REQUEST R;
@@ -1239,7 +1239,7 @@ void Request(USER userM) //Defining a function to collect requests from ysers
     fclose(fp); //closing file
 }
 
-void ReadRequest() //Defining a functin to read requests
+void ReadRequest() //Defining a function to read requests
 {
     USER U;
     REQUEST RR;
@@ -1323,7 +1323,7 @@ void UpdateBook()
                         gets(bookU.id);
                         if(BookIDChk(bookU.id)==1)
                         {
-                            printf("\n\tThe Book Id Alreay exists, Try another.");
+                            printf("\n\tThe Book Id Already exists, Try another.");
                         }
                     }while(BookIDChk(bookU.id)==1);
                     printf("\n\tUpdates Saved.Press Enter to go back.");
@@ -1345,7 +1345,7 @@ void UpdateBook()
                 }
                 else if(val==5)
                 {
-                    printf("\n\tEnter New Upadate Book Name : ");
+                    printf("\n\tEnter New Update Book Name : ");
                     getchar();
                     gets(bookU.name);
                     printf("\tEnter New Update Book Id : ");
@@ -1419,7 +1419,7 @@ void main()
             {
                 Date(); //reading current date
                 userOnline.hold=userPage(userOnline); //storing return of user page to useronline hold.  This also prints userpage
-                Date(); //Redaing current date
+                Date(); //Reading current date
                 printf("\n\tDate: %d/%d/%d\n",dd,mm,yyyy);
                 printf("\n\tEnter Respective Value\n"); //giving all available options for user
                 printf("\n\t%-20s\t%-20s\t%-20s\t%-20s\n\t%-20s\t%-20s\t%-20s\n","1:Borrow Book","2:Return Book","3:View Catalog","4:Search","5:Change Password","6:Request Book","7:Logout");
@@ -1467,7 +1467,7 @@ void main()
                     getchar();
                     getchar();
                 }
-                else if(b==3) //if choic to see catalog
+                else if(b==3) //if choice to see catalog
                 {
                     Catalog(); //show catalog
                     printf("\n\tPress Enter to go next...\n\t");
