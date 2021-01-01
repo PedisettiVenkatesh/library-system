@@ -2,19 +2,19 @@
 This is a simple program in C for library management system. The system has admin and users.
 Admin can add, update or remove the Books and its details. also view and manage the users. 
 Users are a student or faculty. users can borrow and return a book, also message or request a book to admin. 
-Other than these there are also some features like changng passwords, viewing catalog, Search book, etc.
+Other than these there are also some features like changing passwords, viewing catalog, Search book, etc.
 
 
-
+#
     ADMIN MANUAL
-
+#
     Admin Registration
 
 For registering as admin you will have to know two main things,
   1. During registration, when the code asks who are you? for 'F' or 'S', admin should give 'A'.
   2. The Developer Password.
-STEPS TO REGISTER:
-  Step 1: When you are in Home page Press 3 (register option).
+  STEPS TO REGISTER:
+Step 1: When you are in Home page Press 3 (register option).
   Step 2: Enter your name.
   Step 3: Enter 'A'.
   Step 4: Enter Developer Password.
