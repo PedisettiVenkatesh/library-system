@@ -6,6 +6,7 @@ Description:This project was done for the assignment given in CS3101-(2020 Autum
 #include<stdlib.h>  //including Standard library header file
 #include<string.h>  //including String header file
 #include<ctype.h>   //including the ctype header file
+#include<time.h>
 
 int a,b,i,OD=0,FB=0,login=0,TotalBooks,TotalUsers,X=0,Y,Z;    //declaring Global integer variables
 char Log[20]="";    //declaring Global string variable, we use Log to store the ID of online user
@@ -39,9 +40,14 @@ USER userOnline;    //declaring a struct of USER
 void Date() //This function reads date from file "Date.txt"
 {
     dd=mm=yyyy=0;   //resetting to 0
-    fd=fopen(DatePath,"r"); //opening file for reading
-    fscanf(fd, "%d %d %d", &dd, &mm, &yyyy);    //copying data from file
-    fclose(fd); //Closing file
+    time_t t = time(NULL);
+    struct tm date = *localtime(&t);
+    dd=date.tm_mday;
+    mm=date.tm_mon + 1;
+    yyyy=date.tm_year + 1900;
+    // fd=fopen(DatePath,"r"); //opening file for reading
+    // fscanf(fd, "%d %d %d", &dd, &mm, &yyyy);    //copying data from file
+    // fclose(fd); //Closing file
 }
 
 void DatePlus(int days) //This function adds number of days to current date
@@ -111,7 +117,7 @@ void DatePlus(int days) //This function adds number of days to current date
 
 void welcomeScreen() //defining a function welcomeScreen it prints the welcome screen
 {
-    printf("\n\n\n\n\n\n\n\n\n\n\n\t");
+    printf("\n\n\n\n\n\t");
     for(i=0;i<120;i++)
     {
         printf("*"); //printing '*' symbol for line to separate
@@ -511,7 +517,7 @@ int userPage(USER userP)    //defining function for displaying the user details
     }
     for(i=0;i<5;i++)
     {
-        printf("\n\t%2d  %-50s %-20s %-9s %d/%d/%d",i+1,userP.b[i].name,userP.b[i].author,userP.b[i].id,userP.b[i].DD,userP.b[i].MM,userP.b[i].YYYY); //printing user name and his books,author name, book ID, User ID,Due date
+        printf("\n\t%2d  %-50s %-20s %-9s %02d/%02d/%04d",i+1,userP.b[i].name,userP.b[i].author,userP.b[i].id,userP.b[i].DD,userP.b[i].MM,userP.b[i].YYYY); //printing user name and his books,author name, book ID, User ID,Due date
         if(userP.id[0]=='S' && i==2) //If the user is a student then the loop gets broken when the number of books reaches 3
         {
             break; //the 4 and 5 book slot will load only if it is faculty
@@ -1038,78 +1044,78 @@ void Credits() //This a simple function that prints credits
     }
     printf("\n\t%63s\n\n\n","Thank You!!");
     printf("%67s\n\n","CREDITS");
-    printf("%63s %6s\n","VENKATESH","18MS014");
+    printf("%63s %6s\n\n\t","VENKATESH","18MS014");
     for(i=0;i<120;i++)
     {
     printf("*");
     }
 }
 
-void SetDate() //Defining a function for admin to set the current date
-{
-    X=0; 
-    do //starting a while loop while X=0
-    {
-        X=1; //changing X to 1
-        printf("\n\tEnter proper Date in format dd/mm/yyyy respectively\n\tdd : ");
-        scanf("%d", &dd); //Asking and storing date in dd,mm,yyyy
-        printf("\tmm : ");
-        scanf("%d", &mm);
-        printf("\tyyyy : ");
-        scanf("%d", &yyyy);
-        //checking if any error in date, as of in a real calender
-        if(mm==2 && yyyy%4!=0) //28days
-        {
-            if(dd>28 || dd<1)
-            {
-                printf("\n\tThere is error in Date. try again.");
-                X=0;
-            }
-        }
-        else if(mm==2 && yyyy%4==0) //29days
-        {
-            if(dd>29 || dd<1)
-            {
-                printf("\n\tThere is error in Date. try again.");
-                X=0;
-            }
-        }
-        else if(mm==4 || mm==6 || mm==9 || mm==11) //30days
-        {
-            if(dd>30 || dd<1)
-            {
-                printf("\n\tThere is error in Date. try again.");
-                X=0;
-            }
-        }
-        else if(mm==1 || mm==3 || mm==5 || mm==7 || mm==8 || mm==10 || mm==12) //31days
-        {
-            if(dd>31 || dd<1)
-            {
-                printf("\n\tThere is error in Date. try again.");
-                X=0;
-            }
-        }
+// void SetDate() //Defining a function for admin to set the current date
+// {
+//     X=0; 
+//     do //starting a while loop while X=0
+//     {
+//         X=1; //changing X to 1
+//         printf("\n\tEnter proper Date in format dd/mm/yyyy respectively\n\tdd : ");
+//         scanf("%d", &dd); //Asking and storing date in dd,mm,yyyy
+//         printf("\tmm : ");
+//         scanf("%d", &mm);
+//         printf("\tyyyy : ");
+//         scanf("%d", &yyyy);
+//         //checking if any error in date, as of in a real calender
+//         if(mm==2 && yyyy%4!=0) //28days
+//         {
+//             if(dd>28 || dd<1)
+//             {
+//                 printf("\n\tThere is error in Date. try again.");
+//                 X=0;
+//             }
+//         }
+//         else if(mm==2 && yyyy%4==0) //29days
+//         {
+//             if(dd>29 || dd<1)
+//             {
+//                 printf("\n\tThere is error in Date. try again.");
+//                 X=0;
+//             }
+//         }
+//         else if(mm==4 || mm==6 || mm==9 || mm==11) //30days
+//         {
+//             if(dd>30 || dd<1)
+//             {
+//                 printf("\n\tThere is error in Date. try again.");
+//                 X=0;
+//             }
+//         }
+//         else if(mm==1 || mm==3 || mm==5 || mm==7 || mm==8 || mm==10 || mm==12) //31days
+//         {
+//             if(dd>31 || dd<1)
+//             {
+//                 printf("\n\tThere is error in Date. try again.");
+//                 X=0;
+//             }
+//         }
  
-        if(mm>12 || mm<1)
-        {
-            printf("\n\tThere is error in Month. try again.");
-            X=0;
-        }
-        else if(yyyy<2020 || yyyy>2999) //only these years are allowed for now
-        {
-            printf("\n\tThere is error in Year.\n\tYear can not be before 2020 or exceed 2999. Try again.");
-            X=0;
-        }
-    } while (X==0); //while loop
+//         if(mm>12 || mm<1)
+//         {
+//             printf("\n\tThere is error in Month. try again.");
+//             X=0;
+//         }
+//         else if(yyyy<2020 || yyyy>2999) //only these years are allowed for now
+//         {
+//             printf("\n\tThere is error in Year.\n\tYear can not be before 2020 or exceed 2999. Try again.");
+//             X=0;
+//         }
+//     } while (X==0); //while loop
  
-    fp = fopen(DatePath,"w"); //overwriting date inn date path
-    fprintf(fp, "%d %d %d", dd, mm, yyyy);
-    fclose(fp);
+//     fp = fopen(DatePath,"w"); //overwriting date inn date path
+//     fprintf(fp, "%d %d %d", dd, mm, yyyy);
+//     fclose(fp);
  
-    Date(); //reading the current date
-    printf("\n\tDate Set to %d/%d/%d",dd,mm,yyyy); //printing date changed.
-}
+//     Date(); //reading the current date
+//     printf("\n\tDate Set to %d/%d/%d",dd,mm,yyyy); //printing date changed.
+// }
 
 void ChangePassword(USER userC) //Defining a function for changing Password
 {
@@ -1222,7 +1228,7 @@ void Request(USER userM) //Defining a function to collect requests from users
             Date(); //reading curren date
             strcpy(R.fromName,U.name); //reading name, id
             strcpy(R.fromID,U.id);
-            printf("\n\tWrite your Message/Request.\n\tPlease be polite.\n\n\tYour Message(150 char): "); //asking for his message 
+            printf("\n\tWrite your Message/Request.\n\tPlease be polite.(Press Enter key to send the Message.)\n\n\n\tYour Message(150 char): "); //asking for his message 
             getchar(); 
             gets(R.message); //storing msg
             R.revDD=dd; //storing current date
@@ -1243,19 +1249,34 @@ void ReadRequest() //Defining a function to read requests
 {
     USER U;
     REQUEST RR;
+    int go=0;
     fptr=fopen(ReqPath,"r"); //opening requests file and reading them
-    if (fptr==NULL) //If the file cant be opened
+    fseek(fptr, 0, SEEK_END);
+    if (fptr==NULL || ftell(fp) == 0) //If the file cant be opened
     {
         printf("\n\n\tThere are no Requests yet.\n");
-        fclose(fptr); //Closing the fptr file if the above condition is satisfied
     }
-    i=0;
-    while(fread(&RR,sizeof(REQUEST),1,fptr))
+    else
     {
-        i++;
-        printf("\n\t%d\n\tFrom: %s\tid: %s\tDate: %d/%d/%d\n\tMessage: %s\n\n",i,RR.fromName,RR.fromID,RR.revDD,RR.revMM,RR.revYYYY,RR.message); //printing all the requests
+        fseek(fp, 0, SEEK_SET);
+        i=0;
+        while(fread(&RR,sizeof(REQUEST),1,fptr))
+        {
+            i++;
+            printf("\n\t%d\n\tFrom: %s\t\tid: %s\tDate: %d/%d/%d\n\tMessage: %s\n\n",i,RR.fromName,RR.fromID,RR.revDD,RR.revMM,RR.revYYYY,RR.message); //printing all the requests
+        }
+
+        go=0;
+        printf("\t1:Delete All Messages\t(Any number to continue.)\n\tYourChoice : ");
+        scanf("%d",&go);
     }
-    fclose(fptr);
+    fclose(fptr); //Closing the fptr file if the above condition is satisfied
+
+    if(go==1)
+    {
+        fp=fopen(ReqPath,"w");
+        fclose(fp);
+    }
 }
 
 void UpdateBook()
@@ -1312,7 +1333,7 @@ void UpdateBook()
                     printf("\n\tEnter New Update Book Name : ");
                     getchar();
                     gets(bookU.name);
-                    printf("\n\tUpdates Saved.Press Enter to go back.");
+                    printf("\n\tUpdates Saved.");
                 }
                 else if(val==2)
                 {
@@ -1334,14 +1355,14 @@ void UpdateBook()
                     printf("\n\tEnter New Update Author Name : ");
                     getchar();
                     gets(bookU.author);
-                    printf("\n\tUpdates Saved.Press Enter to go back.");
+                    printf("\n\tUpdates Saved.");
                 }
                 else if(val==4)
                 {
                     printf("\n\tEnter New Update Total copies : ");
                     scanf("%d",&bookU.total);
                     bookU.available=bookU.total;
-                    printf("\n\tUpdates Saved.Press Enter to go back.");
+                    printf("\n\tUpdates Saved.");
                 }
                 else if(val==5)
                 {
@@ -1359,7 +1380,7 @@ void UpdateBook()
                 }
                 else
                 {
-                    printf("\n\tNo Changes are made.Please try again");
+                    printf("\n\tNO Changes are made.Please try again");
                 }
             }
             fptr=fopen(BooksPath2,"a");
@@ -1370,6 +1391,10 @@ void UpdateBook()
     fclose(fp);
  
     ReCopyBooks();
+
+    printf("\n");
+    Catalog();
+    printf("\n\tPress Enter to go next...");
 }
 
 void main()
@@ -1385,10 +1410,12 @@ void main()
             Search();
             printf("\n\tPress Enter to go next...\n\t");
             getchar();
+            system("cls");
         }
         else if(a==2)
         {
             login=Login(); //storing the return value fo login function in login integer
+            system("cls");
         }
         else if(a==3) //if choice is regester
         {
@@ -1396,6 +1423,7 @@ void main()
             printf("\n\tPress Enter to go next...\n\t");
             getchar();
             getchar();
+            system("cls");
         }
         else if(a==4) //choice is to exit
         {
@@ -1409,6 +1437,7 @@ void main()
             printf("\n\tWorng Entry. Try Again.\n\tPress Enter to go back...\n\t");
             getchar();
             getchar();
+            system("cls");
         }
     
         if(login==1) //if user has logged in
@@ -1420,13 +1449,14 @@ void main()
                 Date(); //reading current date
                 userOnline.hold=userPage(userOnline); //storing return of user page to useronline hold.  This also prints userpage
                 Date(); //Reading current date
-                printf("\n\tDate: %d/%d/%d\n",dd,mm,yyyy);
+                printf("\n\tDate: %02d/%02d/%d\n",dd,mm,yyyy);
                 printf("\n\tEnter Respective Value\n"); //giving all available options for user
                 printf("\n\t%-20s\t%-20s\t%-20s\t%-20s\n\t%-20s\t%-20s\t%-20s\n","1:Borrow Book","2:Return Book","3:View Catalog","4:Search","5:Change Password","6:Request Book","7:Logout");
                 printf("\n\tYour Choice : ");
                 scanf("%d",&b); //storing choice
                 if(b==1) //if choice to borrow
                 {
+                    system("cls");
                     if(userOnline.id[0]=='F') //check if user is faculty
                     {
                         if(userOnline.hold<5) //faculty can take max of 5 books
@@ -1452,9 +1482,11 @@ void main()
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar();
                     getchar();
+                    system("cls");
                 }
                 else if(b==2) //if choice return book
                 {
+                    system("cls");
                     if(userOnline.hold>=1) //if user has some books
                     {
                         ReturnBook(userOnline); //then return
@@ -1466,32 +1498,41 @@ void main()
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar();
                     getchar();
+                    system("cls");
                 }
                 else if(b==3) //if choice to see catalog
                 {
+                    system("cls");
                     Catalog(); //show catalog
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar();
                     getchar();
+                    system("cls");
                 }
                 else if(b==4) //if choice to search
                 {
+                    system("cls");
                     Search();
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar();
+                    system("cls");
                 }
                 else if(b==5) //if choice to change password
                 {
+                    system("cls");
                     ChangePassword(userOnline); //call change pass function
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar();
                     getchar();
+                    system("cls");
                 }
                 else if(b==6) //if choice is to send request
                 {
+                    system("cls");
                     Request(userOnline); //call request function
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar();
+                    system("cls");
                 }
                 else if(b==7) //if choice is to logout
                 {
@@ -1499,15 +1540,14 @@ void main()
                     strcpy(Log,"");
                     login=0;
                     co=1;
-                    printf("\n\tPress Enter to go next...\n\t");
-                    getchar();
-                    getchar();
+                    system("cls");
                 }
                 else //if wrong choice
                 {
                     printf("\n\tWorng Entry. Try Again.\n\tPress Enter to go back...\n\t");
                     getchar();
                     getchar();
+                    system("cls");
                 }
             }while(co==0);
         }
@@ -1524,98 +1564,114 @@ void main()
                     printf("*");
                 }
                 Date(); //reading current date
-                printf("\n\tWelcome back admin.\n\n\tDate: %d/%d/%d\n",dd,mm,yyyy); //welcoming admin and showing all option of admin
+                printf("\n\tWelcome back admin.\n\n\tDate: %02d/%02d/%d\n",dd,mm,yyyy); //welcoming admin and showing all option of admin
                 printf("\n\tEnter Respective Value\n");
-                printf("\n\t%-20s\t%-20s\t%-20s\t%-20s\t%-20s\n\t%-20s\t%-20s\t%-20s\t%-20s\t%-20s\n\t%-20s\n","1 :Set Date","2 :Add Book","3 :Remove Book","4 :Update Book","5 :Search Book","6 :View Catalog","7 :View Users List","8 :Remove User","9 :Read Requests","10:Change Password","11:Logout");
+                printf("\n\t%-20s\t%-20s\t%-20s\t%-20s\t%-20s\n\t%-20s\t%-20s\t%-20s\t%-20s\t%-20s\n\n","1 :Add Book","2 :Remove Book","3 :Update Book","4 :Search Book","5 :View Catalog","6 :View Users List","7 :Remove User","8 :Read Requests","9:Change Password","10:Logout");
                 printf("\n\tYour Choice : ");
                 scanf("%d",&b);//reading choice into b
-                if(b==1)
+                // if(b==1)
+                // {
+                //     SetDate(); //setting the current date
+                //     printf("\n\tPress Enter to go next...\n\t");
+                //     getchar();
+                //     getchar();
+                // }
+                // else 
+                if (b==1)
                 {
-                    SetDate(); //setting the current date
-                    printf("\n\tPress Enter to go next...\n\t");
-                    getchar();
-                    getchar();
-                }
-                else if(b==2)
-                {
+                    system("cls");
                     AddBook(); //going to add book function
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar();
                     getchar();
+                    system("cls");
                 }
-                else if(b==3)
+                else if(b==2)
                 {
+                    system("cls");
                     RemoveBook(); //removing a book from catalog
                     Catalog(); //showing catalog again
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar();
                     getchar();
+                    system("cls");
                 }
-                else if(b==4)
+                else if(b==3)
                 {
+                    system("cls");
                     UpdateBook();   //Updating a book
                     getchar();
+                    system("cls");
                 }
-                else if(b==5)       //Search 
+                else if(b==4)       //Search 
                 {
+                    system("cls");
                     Search();
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar();
+                    system("cls");
                 }
-                else if(b==6)
+                else if(b==5)
                 {
+                    system("cls");
                     Catalog(); //showing catalog
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar(); 
                     getchar(); 
+                    system("cls");
                 }
-                else if(b==7)
+                else if(b==6)
                 {
+                    system("cls");
                     UsersList(); //Showing list of users
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar();
                     getchar();
+                    system("cls");
                 }
-                else if(b==8)
+                else if(b==7)
                 {
+                    system("cls");
                     RemoveUser();//removing a  user
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar();
                     getchar();
+                    system("cls");
                 }
-                else if(b==9)
+                else if(b==8)
                 {
+                    system("cls");
                     ReadRequest(); //reading the requests
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar();
                     getchar();
+                    system("cls");
                 }
-                else if(b==10)
+                else if(b==9)
                 {
+                    system("cls");
                     ChangePassword(userOnline); //changing password
                     printf("\n\tPress Enter to go next...\n\t");
                     getchar();
                     getchar();
+                    system("cls");
                 }
-                else if(b==11)      //logout
+                else if(b==10)      //logout
                 {
                     getchar();
                     strcpy(Log,"");
                     login=0;
                     eo=1;
-                    printf("\n\tPress Enter to go next...\n\t");
-                    getchar();
+                    system("cls");
                 }
                 else //if choice is not valid
                 {
                     printf("\n\tWorng Entry. Try Again.\n\tPress Enter to go back...\n\t");
                     getchar();
                     getchar();
+                    system("cls");
                 }
             }while(eo==0);
         }
     }while(bo==0);
 }
-
-
-
