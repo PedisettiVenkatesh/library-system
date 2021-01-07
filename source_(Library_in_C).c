@@ -1249,19 +1249,34 @@ void ReadRequest() //Defining a function to read requests
 {
     USER U;
     REQUEST RR;
+    int go=0;
     fptr=fopen(ReqPath,"r"); //opening requests file and reading them
-    if (fptr==NULL) //If the file cant be opened
+    fseek(fptr, 0, SEEK_END);
+    if (fptr==NULL || ftell(fp) == 0) //If the file cant be opened
     {
         printf("\n\n\tThere are no Requests yet.\n");
-        fclose(fptr); //Closing the fptr file if the above condition is satisfied
     }
-    i=0;
-    while(fread(&RR,sizeof(REQUEST),1,fptr))
+    else
     {
-        i++;
-        printf("\n\t%d\n\tFrom: %s\t\tid: %s\tDate: %d/%d/%d\n\tMessage: %s\n\n",i,RR.fromName,RR.fromID,RR.revDD,RR.revMM,RR.revYYYY,RR.message); //printing all the requests
+        fseek(fp, 0, SEEK_SET);
+        i=0;
+        while(fread(&RR,sizeof(REQUEST),1,fptr))
+        {
+            i++;
+            printf("\n\t%d\n\tFrom: %s\t\tid: %s\tDate: %d/%d/%d\n\tMessage: %s\n\n",i,RR.fromName,RR.fromID,RR.revDD,RR.revMM,RR.revYYYY,RR.message); //printing all the requests
+        }
+
+        go=0;
+        printf("\t1:Delete All Messages\t(Any number to continue.)\n\tYourChoice : ");
+        scanf("%d",&go);
     }
-    fclose(fptr);
+    fclose(fptr); //Closing the fptr file if the above condition is satisfied
+
+    if(go==1)
+    {
+        fp=fopen(ReqPath,"w");
+        fclose(fp);
+    }
 }
 
 void UpdateBook()
