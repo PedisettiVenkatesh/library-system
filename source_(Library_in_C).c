@@ -1675,6 +1675,3 @@ void main()
         }
     }while(bo==0);
 }
-
-
-
