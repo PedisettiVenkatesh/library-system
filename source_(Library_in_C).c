@@ -13,7 +13,7 @@ char Log[20]="";    //declaring Global string variable, we use Log to store the 
 const char DevPass[20]="QwM!PP12#3@";   //declaring Global const char variable, we use Devpass to verify admin registration
 char aa[10],bb[10],uu[20],pp[20],reID[9],buff[150],mid[10];  //declaring some char variables that we may use any where
 int dd,mm,yyyy; //declaring int variables to store date given by admin
-char DatePath[50]="Date.txt",UsersPath[50]="Users.txt",UsersPath2[50]="UserTemp.txt",BooksPath[50]="Books.txt",BooksPath2[50]="BooksTemp.txt",ReqPath[50]="Requests.txt"; //declaring the char variables for the paths of files we use.
+char DatePath[50]="Date.txt",UsersPath[50]="Users.txt",UsersPath2[50]="UserTemp.txt",BooksPath[50]="Books.txt",BooksPath2[50]="BooksTemp.txt",ReqPath[50]="Requests.txt",ReqPath2[50]="ReqTemp.txt"; //declaring the char variables for the paths of files we use.
 FILE *fp, *fp2, *fptr, *fptr2, *fd; //declaring FILE pointers
 
 typedef struct  //defining a structure with typedef BOOK
@@ -184,6 +184,26 @@ void ReCopyUsers()      //For re writing the editted data to original file
  
     UWrite=fopen(UsersPath2,"w");   //clearing temp file for next use
     fclose(UWrite);
+}
+
+void ReCopyRequests()
+{
+    REQUEST Rr;
+    FILE *RRead, *RWrite;
+    RWrite=fopen(ReqPath,"w");//clearing users file
+    fclose(RWrite);
+ 
+    RRead=fopen(ReqPath2,"r"); //copying from temp file to original file
+    while(fread(&Rr,sizeof(REQUEST),1,RRead))
+    {
+        RWrite = fopen(ReqPath,"a");
+        fwrite(&Rr,sizeof(REQUEST),1,RWrite);
+        fclose(RWrite);
+    }
+    fclose(RRead);
+ 
+    RWrite=fopen(ReqPath2,"w");   //clearing temp file for next use
+    fclose(RWrite);
 }
 
 void Register() //defining a function for regestring new users
@@ -1273,37 +1293,61 @@ void Request(USER userM) //Defining a function to collect requests from users
     fclose(fp); //closing file
 }
 
+void DeleteRequest()
+{
+    FILE *Gp,*Gpt;
+    REQUEST DR;
+    int Cho=0,Ind,Ii=0;
+    printf("\n\t1:Delete All\t2:Delete n'th message\t(or any other number to continue)\n\tYour Choice : ");
+    scanf("%d",&Cho);
+    if (Cho==1)
+    {
+        Gp=fopen(ReqPath,"w");
+        fclose(Gp);
+    }
+    else if (Cho==2)
+    {
+        printf("\n\tEnter the index of message to DELETE it : ");
+        scanf("%d",&Ind);
+        Gpt=fopen(ReqPath,"r");
+        Ii=0;
+        while (fread(&DR,sizeof(REQUEST),1,Gpt))
+        {
+            Ii++;
+            if(Ii!=Ind)
+            {
+                Gp=fopen(ReqPath2,"a");
+                fwrite(&DR,sizeof(REQUEST),1,Gp);
+                fclose(Gp);
+            }
+        }
+        fclose(Gpt);
+        ReCopyRequests();
+    }
+}
+
 void ReadRequest() //Defining a function to read requests
 {
-    USER U;
     REQUEST RR;
     int go=0;
     fptr=fopen(ReqPath,"r"); //opening requests file and reading them
     fseek(fptr, 0, SEEK_END);
-    if (fptr==NULL || ftell(fp) == 0) //If the file cant be opened
+    if (fptr==NULL || ftell(fptr) == 0) //If the file cant be opened
     {
         printf("\n\n\tThere are no Requests yet.\n");
+        fclose(fptr); //Closing the fptr file if the above condition is satisfied
     }
     else
     {
-        fseek(fp, 0, SEEK_SET);
+        fseek(fptr, 0, SEEK_SET);
         i=0;
         while(fread(&RR,sizeof(REQUEST),1,fptr))
         {
             i++;
             printf("\n\t%d\n\tFrom: %s\t\tid: %s\tDate: %d/%d/%d\n\tMessage: %s\n\n",i,RR.fromName,RR.fromID,RR.revDD,RR.revMM,RR.revYYYY,RR.message); //printing all the requests
         }
-
-        go=0;
-        printf("\t1:Delete All Messages\t(Any number to continue.)\n\tYourChoice : ");
-        scanf("%d",&go);
-    }
-    fclose(fptr); //Closing the fptr file if the above condition is satisfied
-
-    if(go==1)
-    {
-        fp=fopen(ReqPath,"w");
-        fclose(fp);
+        fclose(fptr); //Closing the fptr file if the above condition is satisfied
+        DeleteRequest();
     }
 }
 
