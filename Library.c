@@ -554,7 +554,7 @@ int userPage(USER userP) //defining function for displaying the user details
     {
         if (userP.b[i].Force == 1) //priinting for each force
         {
-            printf("\n\t*NOTE: The Book '%s' with ID '%s' is pulled forcefully by admin for the sake of Updation.", userP.b[i].name, userP.b[i].id);
+            printf("\n\t*NOTE: The Book '%s' with ID '%s' is pulled forcefully by admin for the sake of Updating.", userP.b[i].name, userP.b[i].id);
             FB = 1;
         }
     }
@@ -592,7 +592,7 @@ int userPage(USER userP) //defining function for displaying the user details
 
     if (OD == 1) //if there is an overdue the print Note
     {
-        printf("\n\n\t*NOTE: YOU HAVE BOOKS WITH OVERDUE, PLEASE RETURN THE OVERDUE BOOKS IMMEDIATLY.\n");
+        printf("\n\n\t*NOTE: YOU HAVE BOOKS WITH OVERDUE, PLEASE RETURN THE OVERDUE BOOKS IMMEDIATELY.\n");
     }
 
     return userP.hold; //returning the number of books the user hold
