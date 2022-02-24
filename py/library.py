@@ -6,7 +6,7 @@
 import sys
 
 # %%
-print('Library In Python')
+# print('Library In Python')
 
 # %%
 
@@ -24,6 +24,14 @@ class Book():
 # %%
 book1 = Book('demoName', 'me', 'p12')
 
-print('name', book1.name)
+# print('name', book1.name)
 
 # %%
+
+
+def welcomeScreen():
+    print('Library System In Python')
+
+
+# %%
+welcomeScreen()
