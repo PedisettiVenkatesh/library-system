@@ -5,3 +5,5 @@ Books.txt
 ReqTemp.txt
 Requests.txt
 .vscode/settings.json
+a.out
+*.exe

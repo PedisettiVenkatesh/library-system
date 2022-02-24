@@ -1,31 +1,26 @@
 # %%
-# A Libraby program in python
+# Library System in Python
 
 # %%
-# Imports
+# packages
 import sys
 
 # %%
-pritn('Library In Python')
+print('Library In Python')
 
-
+# %%
 class Book():
-    def __init__(self,title,author,bookid):
-        self.title = title
-        self.author = author
-        self.bookid = bookid
+    def __init__(self, Name, Author, Id):
+        self.name = Name
+        self.author = Author
+        self.id = Id
 
     def borrow():
         pass
 
+# %%
+book1 = Book('demoName', 'me', 'p12')
 
+print('name', book1.name)
 
-
-
-
-
-
-
-
-
-
+# %%
