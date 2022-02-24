@@ -9,6 +9,8 @@ import sys
 print('Library In Python')
 
 # %%
+
+
 class Book():
     def __init__(self, Name, Author, Id):
         self.name = Name
@@ -17,6 +19,7 @@ class Book():
 
     def borrow():
         pass
+
 
 # %%
 book1 = Book('demoName', 'me', 'p12')
