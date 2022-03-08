@@ -1,9 +1,12 @@
 # Library System in Python
 # By- PedisettiVenkatesh
 
+from ast import While
+from distutils.log import error
 from math import floor
 import os
 from random import choice
+import re
 import sys
 import numpy as np
 
@@ -24,9 +27,20 @@ def cls():
     """
     os.system('cls' if os.name == 'nt' else 'clear')
 
+#  TODO
+
+
+def get_int_choice():
+    choice = '0'
+    while type(choice) is not int:
+        choice = input(symbol+'  Your Choice : ')
+
 
 def get_choice():
     choice = input(symbol+'  Your Choice : ')
+    if type(choice) is not int:
+        print
+
     return choice
 
 
@@ -62,7 +76,12 @@ def welcome_screen():
     space_line()
     line()
 
-    choice = get_choice()
+    choice = 0
+
+    while choice not in [1, 2, 3, 4]:
+        choice = get_choice()
+        if choice not in [1, 2, 3, 4]:
+            print('wrong choice try again.')
     cls()
     return choice
 
