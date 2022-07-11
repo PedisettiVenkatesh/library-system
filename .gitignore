@@ -8,3 +8,5 @@ Requests.txt
 a.out
 *.exe
 *.swp
+
+py/
